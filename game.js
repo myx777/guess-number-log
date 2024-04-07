@@ -28,17 +28,20 @@ const guessNumber = async () => {
     console.log('Папка "log-folder" создана');
 
     const file = path.join(dir, `${dataLog}log.txt`);
-    await fs.appendFile(file, `${num}\n`);
-    console.log(`Файл "${secretNumber}.txt" создан`);
+
+    console.log(`Файл "${dataLog}.txt" создан`);
 
     if (isNaN(num)) {
       console.log('Введите число!');
+      await fs.appendFile(file, 'введено не чмсло\n');
       await guessNumber();
     } else if (num === secretNumber) {
       console.log('Вы угадали!');
+      await fs.appendFile(file, `Введено:${num}. Победа`);
       rl.close();
     } else {
       console.log('Вы не угадали!');
+      await fs.appendFile(file, `Введено:${num}. Не верно! \n`);
       await guessNumber();
     }
   } catch (error) {
